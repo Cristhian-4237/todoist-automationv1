@@ -4,9 +4,13 @@ export class DashboardPage extends BasePage {
     constructor(page) {
         super(page);
 
-        this.addTaskButton = page.getByRole('button', { name: 'Add task', exact: true });
+        this.addTaskButton = page.getByTestId('upcoming-view-list-layout').getByRole('button', { name: 'Add task' });
         this.taskNameInput = page.getByRole('textbox', { name: 'Task name', exact: true });
-        this.createTaskButton = page.getByTestId('task-editor-submit-button');
+        this.createTaskSubmitButton = page.getByTestId('task_list_editor_wrapper').getByTestId('task-editor-submit-button');
+        this.taskEditorSubmitButton = page.getByTestId('task-detail-editor-container').getByTestId('task-editor-submit-button');
+        this.taskDetailsModal = page.getByTestId('task-details-modal');
+        this.taskNameButton = page.getByRole('button', {name: 'Task name', exact: true});
+    
     }
 
     async clickAddTaskButton() {
@@ -16,7 +20,22 @@ export class DashboardPage extends BasePage {
     async createTask(taskName) {
         await this.clickAddTaskButton();
         await this.taskNameInput.fill(taskName);
-        await this.createTaskButton.click();
+        await this.createTaskSubmitButton.click();
     }
 
+    getTaskLocator(taskName) {
+        return this.page.getByRole('button', { name: `Task: ${taskName}` });
+    }
+
+    async openTask(taskName) {
+        await this.getTaskLocator(taskName).click();
+    }
+
+    async updateTask(currentTaskName, updatedTaskName) {
+        await this.openTask(currentTaskName);
+        await this.taskDetailsModal.waitFor();
+        await this.taskNameButton.click();
+        await this.taskNameInput.fill(updatedTaskName);
+        await this.taskEditorSubmitButton.click();
+    }
 }
