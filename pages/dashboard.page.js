@@ -39,7 +39,8 @@ export class DashboardPage extends BasePage {
 
     async updateTask(currentTaskName, updatedTaskName) {
         await this.openTask(currentTaskName);
-        await this.taskDetailsModal.waitFor();
+        // Wait for the modal to be fully visible before proceeding
+        await this.taskDetailsModal.waitFor({ state: 'visible', timeout: 30000 });
         await this.taskNameButton.click();
         await this.taskNameInput.fill(updatedTaskName);
         await this.taskEditorSubmitButton.click();
