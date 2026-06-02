@@ -21,7 +21,7 @@ test.describe('login', () => {
             environment.todoistPassword);
 
         //Assert
-        await expect(page).toHaveURL(/app\/upcoming/);
+        await expect(page).toHaveURL(/app/);
 
     });
 

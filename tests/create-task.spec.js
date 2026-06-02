@@ -24,7 +24,8 @@ test.describe('task management', () => {
             environment.todoistPassword
         );
 
-        await expect(page).toHaveURL(/upcoming/);
+        // Todoist routes to /app/ not /upcoming/
+        await page.waitForURL(/app/, { timeout: 10000 });
 
         await dashboardPage.createTask(taskName);
 
