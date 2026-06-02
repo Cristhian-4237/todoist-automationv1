@@ -1,4 +1,5 @@
 import {BasePage} from './base.page.js';
+import { expect } from '@playwright/test';
 
 export class DashboardPage extends BasePage {
     constructor(page) {
@@ -23,6 +24,7 @@ export class DashboardPage extends BasePage {
         await this.clickAddTaskButton();
         await this.taskNameInput.fill(taskName);
         await this.createTaskSubmitButton.click();
+        await this.getTaskLocator(taskName).waitFor();
     }
 
     getTaskLocator(taskName) {
