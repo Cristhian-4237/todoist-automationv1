@@ -23,7 +23,8 @@ test.describe('task management', () => {
             environment.todoistEmail,
             environment.todoistPassword
         );
-
+        await expect(page).toHaveURL(/upcoming/);
+        
         await dashboardPage.createTask(originalTaskName);
 
         await dashboardPage.updateTask(originalTaskName, updatedTaskName);     

@@ -24,6 +24,8 @@ test.describe('task management', () => {
             environment.todoistPassword
         );
 
+        await expect(page).toHaveURL(/upcoming/);
+
         await dashboardPage.createTask(taskName);
 
         //Assert
