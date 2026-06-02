@@ -34,7 +34,13 @@ export class DashboardPage extends BasePage {
     }
 
     async openTask(taskName) {
-        await this.getTaskLocator(taskName).click();
+        const task = this.getTaskLocator(taskName);
+
+        await task.waitFor({
+        state: 'visible'
+        });
+
+    await task.click();
     }
 
     async updateTask(currentTaskName, updatedTaskName) {
