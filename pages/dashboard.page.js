@@ -24,11 +24,13 @@ export class DashboardPage extends BasePage {
         await this.clickAddTaskButton();
         await this.taskNameInput.fill(taskName);
         await this.createTaskSubmitButton.click();
-        await this.getTaskLocator(taskName).waitFor();
+        //await this.getTaskLocator(taskName).waitFor();
+        await this.page.getByText(taskName).first().waitFor();
     }
 
     getTaskLocator(taskName) {
-        return this.page.getByRole('button', { name: `Task: ${taskName}` });
+        //return this.page.getByRole('button', { name: `Task: ${taskName}` });
+         return this.page.getByText(taskName).first();
     }
 
     async openTask(taskName) {
